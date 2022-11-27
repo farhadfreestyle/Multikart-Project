@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>Check-out</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Check-out</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!-- section start -->
+    <section class="section-b-space">
+        <div class="container">
+            <div class="checkout-page">
+                <div class="checkout-form">
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Billing Details</h3>
+                                </div>
+
+                                <div class="row check-out">
+
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label class="field-label">First Name</label>
+                                        {{ forms.first_name }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label class="field-label">Last Name</label>
+                                        {{ forms.last_name }}
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label class="field-label">Phone</label>
+                                        {{ forms.phone }}
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <label class="field-label">Email Address</label>
+                                        {{ forms.email }}
+
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="field-label">Country</label>
+                                        {{ forms.country }}
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="field-label">Address</label>
+                                        {{ forms.address }}
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <label class="field-label">Town/City</label>
+                                        {{ forms.town }}
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <label class="field-label">State / County</label>
+                                        {{ forms.state }}
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <label class="field-label">Postal Code</label>
+                                        {{ forms.postal_code }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-details">
+                                    <div class="order-box">
+                                        <div class="title-box">
+                                            <div>Product <span>Total</span></div>
+                                        </div>
+                                        <ul class="qty">
+                                            <li>{{ product.product.name }} × 1 <span>${{ product.product.price }}</span>
+                                            </li>
+                                            <li>{{ product.product.name }} × 1 <span>${{ product.product.price }}</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="sub-total">
+                                            <li>Subtotal <span
+                                                    class="count">${{ order.get_cart_total|floatformat:2 }}</span></li>
+                                            <li>Shipping
+                                                <div class="shipping">
+                                                    <div class="shopping-option">
+                                                        {{ forms.shipping }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="total">
+                                            <li>Total <span
+                                                    class="count">${{ order.get_cart_total|floatformat:2 }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="payment-box">
+                                        <div class="upper-box">
+                                            <div class="payment-options">
+                                                <ul>
+                                                    <li>
+                                                        {{ forms.payment }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <button type="submit" class="btn-solid btn">
+                                                Place Order
+                                            </button>
+                                        <!-- Modal -->
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section end -->
+
+
+
+    <!-- tap to top start -->
+    <div class="tap-top">
+        <div><i class="fa fa-angle-double-up"></i></div>
+    </div>
+    <!-- tap to top end -->
+
+
+
+    <script>
+        function openSearch() {
+            document.getElementById("search-overlay").style.display = "block";
+        }
+
+        function closeSearch() {
+            document.getElementById("search-overlay").style.display = "none";
+        }
+    </script>
+{% endblock %}

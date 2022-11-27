@@ -1,0 +1,82 @@
+{% extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+
+{% block content%}
+    <!--section start-->
+    <section class="register-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>create account</h3>
+                    <div class="theme-card">
+                        <form class="theme-form" method="POST">
+                            {% csrf_token %}
+
+                       
+
+                       
+                            
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="email">First Name</label>
+                                    <!-- <input type="text" class="form-control" id="fname" placeholder="First Name"
+                                        required=""> -->
+                                        {{form.first_name}}
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="review">Last Name</label>
+                                    <!-- <input type="password" class="form-control" id="lname" placeholder="Last Name"
+                                        required=""> -->
+                                        {{form.last_name}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="email">email</label>
+                                    <!-- <input type="text" class="form-control" id="email" placeholder="Email" required=""> -->
+                                    {{form.email}}
+                                    {%if form.email.errors%}
+                                    {{form.email.errors}}
+                                    {% endif %}
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="review">Password</label>
+                                    <!-- <input type="password" class="form-control" id="review"
+                                        placeholder="Enter your password" required=""> -->
+                                        {{form.password1}}
+                                        {{form.password2}}
+                                       
+                                    {%if form.password2.errors%}
+                                    {{form.password2.errors}}
+                                    {% endif %}
+                                </div>
+                                <button class="btn btn-solid" type="submit" style="height: 50px;">Create an account</button>
+                             
+                                
+                                <div style="padding-left: 100px; padding-top: 10px;">
+                                    <ul style="text-align: center;">
+                                        <p><b>Register with</b></p>
+                                        <li style="width: 50px; height: 34px;"><a href="{% url 'users:login_auth'%}"  class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li style="width: 50px; height: 34px;"><a href="{% url 'users:login_auth'%}" class="btn btn-info"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            
+                        </form>
+                        <a style="font-size: 18px;" href="{%url 'users:login'%}">Already have account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Section ends-->
+{% endblock%}
+</body>
+
+</html>

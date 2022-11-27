@@ -1,0 +1,84 @@
+version: "3.7"
+
+services:
+  multikart:
+    build:
+
+      context: .
+      dockerfile: Dockerfile
+    image: backend
+    container_name: backend
+    restart: always
+    tty: true
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - pg_db
+    volumes:
+      - multikart:/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
+  
+      
+    links:
+      - pg_db
+
+  pg_db:
+    image: postgres:13-alpine
+    container_name: pg_db
+
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    
+
+       
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '1'
+  redis:
+    image: redis:alpine
+
+  
+  celery:
+    build: .
+    command: celery -A Multikrat worker -l debug
+    volumes:
+      - .multikart:/app
+    depends_on:
+  
+      - redis
+      - multikart
+
+
+  celery-beat:
+    build: .
+    command: celery -A Multikrat beat -l info
+    volumes:
+      - .multikart:/app
+    depends_on:
+   
+      - redis
+      - multikart
+    
+
+  
+  adminer:
+           image: adminer
+           restart: always
+           ports:
+              - 8080:8080
+
+volumes:
+  multikart:
+  pgdata:
